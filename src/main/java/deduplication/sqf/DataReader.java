@@ -9,13 +9,17 @@ import com.opencsv.CSVReaderHeaderAware;
 
 public class DataReader {
 	CSVReaderHeaderAware reader;
-	ArrayList<String[]> myEntries ;
+	ArrayList<Voter> voterEntries ;
 	
 	public DataReader(String csv) {
 		try {
 			reader = new CSVReaderHeaderAware(new FileReader(csv));
-			myEntries = new ArrayList<String[]>(reader.readAll());
+			ArrayList<String[]> csvEntries = new ArrayList<String[]>(reader.readAll());//create new arraylist
 	    	reader.close(); 
+	    	for (int i = 0; i < csvEntries.size(); i++) {
+	    		Voter voter = new Voter (csvEntries.get(i));
+	    		voterEntries.add(voter);
+	    	}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch bloc
 			e.printStackTrace();
@@ -23,30 +27,22 @@ public class DataReader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
-	public ArrayList<String[]> getMyEntries(){
-		return myEntries;
+	public ArrayList<Voter> getVoterEntries(){
+		return voterEntries;
 	}
 	
-	public ArrayList<String[]> allPairsDeduplication() { //ArrayList<E> ???
-		for(int i = 0; i < myEntries.size(); i++) {
-			String[] voterInfo = myEntries.get(i);
-			Voter voter = new Voter(voterInfo);
-			for(int j = 0; j < myEntries.size(); j++) {
-				String[] voterInfo2 = myEntries.get(j);
-				Voter voter2 = new Voter(voterInfo2);
-				if(i == j) 
+	public ArrayList<Voter> allPairsDeduplication() { 
+		ArrayList<Voter> deduplicatedEntries = new ArrayList<Voter>();
+		for(int i = 0; i < voterEntries.size(); i++) {
+			for(int j = 0; j < voterEntries.size(); j++) {//create new ArrayList, add if not same person
+				if(voterEntries.get(i) == voterEntries.get(j) || voterEntries.get(i).compareTo(voterEntries.get(j)) == 0) 
 					continue;
 				else
-					if(voter.compareTo(voter2) == 0) {
-						myEntries.remove(j);
-						j--; //MAYBE ???
-					}
+					deduplicatedEntries.add(voterEntries.get(i));
 			}
 		}
-		
-		return myEntries;
+		return deduplicatedEntries;
 	}
 }
