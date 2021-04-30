@@ -17,7 +17,7 @@ public class DataReader {
 			myEntries = new ArrayList<String[]>(reader.readAll());
 	    	reader.close(); 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch bloc
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
