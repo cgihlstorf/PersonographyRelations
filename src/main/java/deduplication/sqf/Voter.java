@@ -21,5 +21,9 @@ public class Voter implements Comparable<Voter> {
 			else
 				return 0;
 	}
+	
+	public String toString() {
+		return firstName + " " + lastName;
+	}
 
 }

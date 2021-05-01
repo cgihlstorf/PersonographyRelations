@@ -45,4 +45,58 @@ public class DataReader {
 		}
 		return deduplicatedEntries;
 	}
+	//ask about what the project part means
+	public ArrayList<Voter> hashLinearDeduplication(){//make sure this works
+		ProbeHashMap<String, Voter> voterMap = new ProbeHashMap<String, Voter>(1000003);
+		for (int i = 0; i < voterEntries.size(); i++) {
+			voterMap.bucketPut(i, voterEntries.get(i).toString(), voterEntries.get(i));
+		}
+		ArrayList<Voter> outputList = new ArrayList<Voter>();
+		for (int i = 0; i < voterMap.size(); i++) {
+			outputList.add(voterMap.bucketGet(i, voterEntries.get(i).toString()));
+		}
+		return outputList;
+	}
+	
+	public ArrayList<Voter> quicksortDeduplication(){//is this correct?
+		Voter pivotVoter = voterEntries.get(voterEntries.size() - 1);	
+		for (int i = 0; i < voterEntries.size() -1 ; i++) {
+			if (voterEntries.get(i).compareTo(voterEntries.get(i + 1)) > 0) {
+				break;
+			}
+		}
+		if (pivotVoter.compareTo(voterEntries.get(voterEntries.indexOf(pivotVoter) - 1)) < 0) {
+			Voter temp = pivotVoter;
+			voterEntries.set(voterEntries.indexOf(pivotVoter), voterEntries.get(voterEntries.indexOf(pivotVoter) - 1));
+			voterEntries.set(voterEntries.indexOf(pivotVoter) - 1, temp);
+		}
+		
+		quicksortDeduplication();
+		
+		return voterEntries;//?
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
