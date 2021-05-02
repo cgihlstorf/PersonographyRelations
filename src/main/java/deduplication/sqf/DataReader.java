@@ -9,7 +9,7 @@ import com.opencsv.CSVReaderHeaderAware;
 
 public class DataReader {
 	CSVReaderHeaderAware reader;
-	ArrayList<Voter> voterEntries ;
+	ArrayList<Voter> voterEntries = new ArrayList<Voter>();
 	
 	public DataReader(String csv) {
 		try {
@@ -19,7 +19,9 @@ public class DataReader {
 	    	for (int i = 0; i < csvEntries.size(); i++) {
 	    		Voter voter = new Voter (csvEntries.get(i));
 	    		voterEntries.add(voter);
+	    		//System.out.println(voter.toString());
 	    	}
+	    	System.out.println(csvEntries.size());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch bloc
 			e.printStackTrace();
@@ -34,14 +36,19 @@ public class DataReader {
 	}
 	
 	public ArrayList<Voter> allPairsDeduplication() { 
+		boolean noDuplicate = true;
 		ArrayList<Voter> deduplicatedEntries = new ArrayList<Voter>();
 		for(int i = 0; i < voterEntries.size(); i++) {
-			for(int j = 0; j < voterEntries.size(); j++) {//create new ArrayList, add if not same person
-				if(voterEntries.get(i) == voterEntries.get(j) || voterEntries.get(i).compareTo(voterEntries.get(j)) == 0) 
-					continue;
-				else
-					deduplicatedEntries.add(voterEntries.get(i));
+			for(int j = 0; j < deduplicatedEntries.size(); j++) {//create new ArrayList, add if not same person
+				if(voterEntries.get(i).compareTo(deduplicatedEntries.get(j)) == 0) {
+					noDuplicate = false;
+					//System.out.println(voterEntries.get(i));
+					//post on Piazza about this?
+					break;
+				}
 			}
+			if(noDuplicate == true)
+				deduplicatedEntries.add(voterEntries.get(i));
 		}
 		return deduplicatedEntries;
 	}
@@ -67,8 +74,11 @@ public class DataReader {
 		}
 		if (pivotVoter.compareTo(voterEntries.get(voterEntries.indexOf(pivotVoter) - 1)) < 0) {
 			Voter temp = pivotVoter;
+			voterEntries.remove(voterEntries.indexOf(pivotVoter));
 			voterEntries.set(voterEntries.indexOf(pivotVoter), voterEntries.get(voterEntries.indexOf(pivotVoter) - 1));
-			voterEntries.set(voterEntries.indexOf(pivotVoter) - 1, temp);
+			voterEntries.remove(voterEntries.indexOf(pivotVoter) - 1);//can we use indexOf?
+			voterEntries.set(voterEntries.indexOf(pivotVoter) - 1, temp);//come back to this!!
+			
 		}
 		
 		quicksortDeduplication();
