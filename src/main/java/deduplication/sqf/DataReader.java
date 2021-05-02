@@ -65,41 +65,55 @@ public class DataReader {
 		return outputList;
 	}
 	
+	ArrayList<Voter> temp = new ArrayList<Voter>();
+	
 	public ArrayList<Voter> quicksortDeduplication(){//is this correct?
-		Voter pivotVoter = voterEntries.get(voterEntries.size() - 1);	
+		ArrayList<Voter> quicksortOutput = new ArrayList<Voter>();
 		ArrayList<Voter> l = new ArrayList<Voter>();
 		ArrayList<Voter> e = new ArrayList<Voter>();
 		ArrayList<Voter> g = new ArrayList<Voter>();
-		for (int i = 0; i < voterEntries.size() -1 ; i++) {
-			if (pivotVoter.compareTo(voterEntries.get(i)) < 0) {
-				g.add(voterEntries.get(i));
-			}
-			else if(pivotVoter.compareTo(voterEntries.get(i)) > 0) {
-				l.add(voterEntries.get(i));
-			}
-			else
-				e.add(voterEntries.get(i));
+		if (l.size() == 0 && e.size() == 0 && g.size() == 0) {
+			temp = voterEntries;
 		}
-		if(l.size() >1)
-			l.quicksortDeduplication();
-//		int i;
-//		for (i = 0; i < voterEntries.size() -1 ; i++) {
-//			if (voterEntries.get(i).compareTo(voterEntries.get(i + 1)) > 0) {
-//				break;
-//			}
-//		}
-//		if (pivotVoter.compareTo(voterEntries.get(voterEntries.indexOf(pivotVoter)-1)) < 0) {
-//			Voter temp = pivotVoter;
-//			voterEntries.remove(voterEntries.indexOf(pivotVoter));
-//			voterEntries.set(voterEntries.indexOf(pivotVoter), voterEntries.get(voterEntries.indexOf(pivotVoter) - 1));
-//			voterEntries.remove(voterEntries.indexOf(pivotVoter) - 1);//can we use indexOf?
-//			voterEntries.set(voterEntries.indexOf(pivotVoter) - 1, temp);//come back to this!!
-//			
-//		}
-//		if(i != voterEntries.size()-1)
-//			quicksortDeduplication();
-//		
-//		return voterEntries;//?
+		Voter pivotVoter = temp.get(temp.size() - 1);
+		for (int i = 0; i < temp.size() -1 ; i++) {
+			if (pivotVoter.compareTo(temp.get(i)) < 0) {
+				g.add(temp.get(i));
+			}else if(pivotVoter.compareTo(temp.get(i)) > 0) {
+				l.add(temp.get(i));
+			}else
+				e.add(temp.get(i));
+		}
+		
+		if(l.size() > 1 && l.size() < voterEntries.size() - 1 - g.size() - 1 - e.size() - 1) {
+			temp = l;
+			quicksortDeduplication();
+		} else if(g.size() > 1 && g.size() < voterEntries.size() - 1 - l.size() - 1 - e.size() - 1) {
+			temp = g;
+			quicksortDeduplication();
+		}
+		
+		for (int i = 0; i < l.size(); i++) {
+			quicksortOutput.add(l.get(i));
+		}
+		for (int i = 0; i < e.size(); i++) {
+			quicksortOutput.add(e.get(i));
+		}
+		for (int i = 0; i < g.size(); i++) {
+			quicksortOutput.add(g.get(i));
+		}
+		return quicksortOutput;//why id this originally work for us?
+	}
+
+	public ArrayList<Voter> deduplicateSorted (ArrayList<Voter> quicksortOutput){//do we really need this method, also why aren't things printing?
+		System.out.println(quicksortOutput.size());
+		for (int i = 0; i < quicksortOutput.size() -1; i++) {
+			if (quicksortOutput.get(i).compareTo(quicksortOutput.get(i + 1)) == 0){
+				quicksortOutput.remove(i);
+			}
+		}
+		System.out.println(quicksortOutput.size());
+		return quicksortOutput;
 	}
 	
 }
