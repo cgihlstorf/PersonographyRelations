@@ -67,23 +67,39 @@ public class DataReader {
 	
 	public ArrayList<Voter> quicksortDeduplication(){//is this correct?
 		Voter pivotVoter = voterEntries.get(voterEntries.size() - 1);	
+		ArrayList<Voter> l = new ArrayList<Voter>();
+		ArrayList<Voter> e = new ArrayList<Voter>();
+		ArrayList<Voter> g = new ArrayList<Voter>();
 		for (int i = 0; i < voterEntries.size() -1 ; i++) {
-			if (voterEntries.get(i).compareTo(voterEntries.get(i + 1)) > 0) {
-				break;
+			if (pivotVoter.compareTo(voterEntries.get(i)) < 0) {
+				g.add(voterEntries.get(i));
 			}
+			else if(pivotVoter.compareTo(voterEntries.get(i)) > 0) {
+				l.add(voterEntries.get(i));
+			}
+			else
+				e.add(voterEntries.get(i));
 		}
-		if (pivotVoter.compareTo(voterEntries.get(voterEntries.indexOf(pivotVoter) - 1)) < 0) {
-			Voter temp = pivotVoter;
-			voterEntries.remove(voterEntries.indexOf(pivotVoter));
-			voterEntries.set(voterEntries.indexOf(pivotVoter), voterEntries.get(voterEntries.indexOf(pivotVoter) - 1));
-			voterEntries.remove(voterEntries.indexOf(pivotVoter) - 1);//can we use indexOf?
-			voterEntries.set(voterEntries.indexOf(pivotVoter) - 1, temp);//come back to this!!
-			
-		}
-		
-		quicksortDeduplication();
-		
-		return voterEntries;//?
+		if(l.size() >1)
+			l.quicksortDeduplication();
+//		int i;
+//		for (i = 0; i < voterEntries.size() -1 ; i++) {
+//			if (voterEntries.get(i).compareTo(voterEntries.get(i + 1)) > 0) {
+//				break;
+//			}
+//		}
+//		if (pivotVoter.compareTo(voterEntries.get(voterEntries.indexOf(pivotVoter)-1)) < 0) {
+//			Voter temp = pivotVoter;
+//			voterEntries.remove(voterEntries.indexOf(pivotVoter));
+//			voterEntries.set(voterEntries.indexOf(pivotVoter), voterEntries.get(voterEntries.indexOf(pivotVoter) - 1));
+//			voterEntries.remove(voterEntries.indexOf(pivotVoter) - 1);//can we use indexOf?
+//			voterEntries.set(voterEntries.indexOf(pivotVoter) - 1, temp);//come back to this!!
+//			
+//		}
+//		if(i != voterEntries.size()-1)
+//			quicksortDeduplication();
+//		
+//		return voterEntries;//?
 	}
 	
 }
