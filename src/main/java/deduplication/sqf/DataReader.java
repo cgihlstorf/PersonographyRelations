@@ -21,7 +21,7 @@ public class DataReader {
 	    		voterEntries.add(voter);
 	    		//System.out.println(voter.toString());
 	    	}
-	    	System.out.println(csvEntries.size());
+	    	//System.out.println(csvEntries.size());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch bloc
 			e.printStackTrace();
@@ -36,23 +36,23 @@ public class DataReader {
 	}
 	
 	public ArrayList<Voter> allPairsDeduplication() { 
-		boolean noDuplicate = true;
+		boolean duplicate = false;
 		ArrayList<Voter> deduplicatedEntries = new ArrayList<Voter>();
 		for(int i = 0; i < voterEntries.size(); i++) {
 			for(int j = 0; j < deduplicatedEntries.size(); j++) {//create new ArrayList, add if not same person
 				if(voterEntries.get(i).compareTo(deduplicatedEntries.get(j)) == 0) {
-					noDuplicate = false;
+					duplicate = true;
 					//System.out.println(voterEntries.get(i));
-					//post on Piazza about this?
 					break;
 				}
-			}
-			if(noDuplicate == true)
+			}	
+			if(duplicate == false)
 				deduplicatedEntries.add(voterEntries.get(i));
+			duplicate = false;
 		}
 		return deduplicatedEntries;
 	}
-	//ask about what the project part means
+	
 	public ArrayList<Voter> hashLinearDeduplication(){//make sure this works
 		ProbeHashMap<String, Voter> voterMap = new ProbeHashMap<String, Voter>(1000003);
 		for (int i = 0; i < voterEntries.size(); i++) {
@@ -102,17 +102,18 @@ public class DataReader {
 		for (int i = 0; i < g.size(); i++) {
 			quicksortOutput.add(g.get(i));
 		}
+		deduplicateSorted(quicksortOutput);
 		return quicksortOutput;//why id this originally work for us?
 	}
 
 	public ArrayList<Voter> deduplicateSorted (ArrayList<Voter> quicksortOutput){//do we really need this method, also why aren't things printing?
-		System.out.println(quicksortOutput.size());
+		//System.out.println(quicksortOutput.size());
 		for (int i = 0; i < quicksortOutput.size() -1; i++) {
 			if (quicksortOutput.get(i).compareTo(quicksortOutput.get(i + 1)) == 0){
 				quicksortOutput.remove(i);
 			}
 		}
-		System.out.println(quicksortOutput.size());
+		//System.out.println(quicksortOutput.size());
 		return quicksortOutput;
 	}
 	
