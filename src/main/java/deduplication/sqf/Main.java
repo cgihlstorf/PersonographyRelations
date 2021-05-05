@@ -9,7 +9,7 @@ public class Main {
     	DataReader test = new DataReader(args[0]);
     	//System.out.println(test.allPairsDeduplication());
     	//System.out.println(test.hashLinearDeduplication());
-    	//System.out.println(test.quicksortDeduplication());
+    	System.out.println(test.quicksortDeduplication());
     	
     	System.out.println("Records given:" + test.getVoterEntries().size());
     	System.out.println("Attributes checked:FIRST_NAME,LAST_NAME");

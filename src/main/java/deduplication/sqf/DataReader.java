@@ -56,57 +56,76 @@ public class DataReader {
 	public ArrayList<Voter> hashLinearDeduplication(){//make sure this works
 		ProbeHashMap<String, Voter> voterMap = new ProbeHashMap<String, Voter>(1000003);
 		for (int i = 0; i < voterEntries.size(); i++) {
-			voterMap.bucketPut(i, voterEntries.get(i).toString(), voterEntries.get(i));
+			voterMap.put(voterEntries.get(i).toString(), voterEntries.get(i));
 		}
 		ArrayList<Voter> outputList = new ArrayList<Voter>();
 		for (int i = 0; i < voterMap.size(); i++) {
-			outputList.add(voterMap.bucketGet(i, voterEntries.get(i).toString()));
+			outputList.add(voterMap.get(voterEntries.get(i).toString()));
 		}
 		return outputList;
 	}
 	
-	ArrayList<Voter> temp = new ArrayList<Voter>();
+	
 	
 	public ArrayList<Voter> quicksortDeduplication(){//is this correct?
-		ArrayList<Voter> quicksortOutput = new ArrayList<Voter>();
-		ArrayList<Voter> l = new ArrayList<Voter>();
-		ArrayList<Voter> e = new ArrayList<Voter>();
-		ArrayList<Voter> g = new ArrayList<Voter>();
-		if (l.size() == 0 && e.size() == 0 && g.size() == 0) {
-			temp = voterEntries;
-		}
-		Voter pivotVoter = temp.get(temp.size() - 1);
-		for (int i = 0; i < temp.size() -1 ; i++) {
-			if (pivotVoter.compareTo(temp.get(i)) < 0) {
-				g.add(temp.get(i));
-			}else if(pivotVoter.compareTo(temp.get(i)) > 0) {
-				l.add(temp.get(i));
-			}else
-				e.add(temp.get(i));
-		}
 		
-		if(l.size() > 1 && l.size() < voterEntries.size() - 1 - g.size() - 1 - e.size() - 1) {
-			temp = l;
-			quicksortDeduplication();
-		} else if(g.size() > 1 && g.size() < voterEntries.size() - 1 - l.size() - 1 - e.size() - 1) {
-			temp = g;
-			quicksortDeduplication();
-		}
+//		ArrayList<Voter> temp = new ArrayList<Voter>();
+//		ArrayList<Voter> quicksortOutput = new ArrayList<Voter>();
+//		ArrayList<Voter> l = new ArrayList<Voter>();
+//		ArrayList<Voter> e = new ArrayList<Voter>();
+//		ArrayList<Voter> g = new ArrayList<Voter>();
+//		if (l.size() == 0 && e.size() == 0 && g.size() == 0) {
+//			temp = voterEntries;
+//		}
+//		Voter pivotVoter = temp.get(temp.size() - 1);
+//		for (int i = 0; i < temp.size() -1 ; i++) {
+//			if (pivotVoter.compareTo(temp.get(i)) < 0) {
+//				g.add(temp.get(i));
+//			}else if(pivotVoter.compareTo(temp.get(i)) > 0) {
+//				l.add(temp.get(i));
+//			}else
+//				e.add(temp.get(i));
+//		}
+//		
+//		if(l.size() > 1 && l.size() < voterEntries.size() - 1 - g.size() - 1 - e.size() - 1) {
+//			temp = l;
+//			quicksortDeduplication();
+//		} else if(g.size() > 1 && g.size() < voterEntries.size() - 1 - l.size() - 1 - e.size() - 1) {
+//			temp = g;
+//			quicksortDeduplication();
+//		}
+//		
+//		for (int i = 0; i < l.size(); i++) {
+//			quicksortOutput.add(l.get(i));
+//		}
+//		for (int i = 0; i < e.size(); i++) {
+//			quicksortOutput.add(e.get(i));
+//		}
+//		for (int i = 0; i < g.size(); i++) {
+//			quicksortOutput.add(g.get(i));
+//		}
+//		//deduplicateSorted(quicksortOutput);
+//		return quicksortOutput;//why id this originally work for us?
+	}
+	
+	public void quickSort(int index1, int index2) {
 		
-		for (int i = 0; i < l.size(); i++) {
-			quicksortOutput.add(l.get(i));
+		
+	}
+	public void partition (int index1, int index2) {
+		Voter pivotVoter = voterEntries.get(index2);
+		while (pivotVoter.compareTo(voterEntries.get(index2 - 1)) < 0) {
+			swap(pivotVoter, voterEntries.get(index2 - 1));
 		}
-		for (int i = 0; i < e.size(); i++) {
-			quicksortOutput.add(e.get(i));
-		}
-		for (int i = 0; i < g.size(); i++) {
-			quicksortOutput.add(g.get(i));
-		}
-		deduplicateSorted(quicksortOutput);
-		return quicksortOutput;//why id this originally work for us?
+	}
+	
+	public void swap (Voter voter1, Voter voter2) {
+		int voter1Index = voterEntries.indexOf(voter1);
+		voterEntries.set(voterEntries.indexOf(voter2), voter1);
+		voterEntries.set(voter1Index, voter2);
 	}
 
-	public ArrayList<Voter> deduplicateSorted (ArrayList<Voter> quicksortOutput){//do we really need this method, also why aren't things printing?
+	public ArrayList<Voter> deduplicateSorted(ArrayList<Voter> quicksortOutput){//do we really need this method, also why aren't things printing?
 		//System.out.println(quicksortOutput.size());
 		for (int i = 0; i < quicksortOutput.size() -1; i++) {
 			if (quicksortOutput.get(i).compareTo(quicksortOutput.get(i + 1)) == 0){
