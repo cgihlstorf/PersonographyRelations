@@ -99,8 +99,6 @@ public class DataReader {
 			}
 		}
 	}
-		
-	
 	
 	public int partition (int pivotIndex, int otherIndex) {
 		while(pivotIndex != otherIndex) {
