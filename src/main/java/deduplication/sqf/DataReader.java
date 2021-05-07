@@ -68,7 +68,7 @@ public class DataReader {
 	public ArrayList<Voter> quicksortDeduplication(){
 		ArrayList<Voter> newList = new ArrayList<Voter>();
 		System.out.println("test");
-		quickSort(0, voterEntries.size() - 1);
+		quickSort(0, voterEntries.size() - 3);
 		for (int i = 0; i < voterEntries.size() - 1; i++) {
 			if (voterEntries.get(i).compareTo(voterEntries.get(i + 1)) != 0){
 				newList.add(voterEntries.get(i));
@@ -81,9 +81,17 @@ public class DataReader {
 		for(int i = 0; i < voterEntries.size() - 1; i++) {	
 			if(voterEntries.get(i).compareTo(voterEntries.get(i+1)) > 0){
 				int pivotIndex = partition(index1, index2);
-				if(pivotIndex == index1 && pivotIndex == index2) break;//see if this is needed
-				else if (pivotIndex == index1 && pivotIndex != index2) quickSort(pivotIndex + 1,index2);
-				else if (pivotIndex != index1 && pivotIndex == index2) quickSort(index1, pivotIndex - 1);
+				if(index2-index1 == 1) {
+					if(voterEntries.get(index1).compareTo(voterEntries.get(index2)) > 0) {
+						swap(voterEntries.get(index1), voterEntries.get(index2));
+						swap(index1, index2);
+					}
+					break;
+				}
+				else if(pivotIndex == index1 && pivotIndex == index2) break;//see if this is needed
+				else if(pivotIndex-1 == index1 && pivotIndex+1 == index2) break;
+				else if (pivotIndex-1 == index1 && pivotIndex+1 != index2) quickSort(pivotIndex + 1,index2);
+				else if (pivotIndex-1 != index1 && pivotIndex+1 == index2) quickSort(index1, pivotIndex - 1);
 				else {
 				quickSort(index1, pivotIndex - 1);
 				quickSort(pivotIndex + 1,index2);
