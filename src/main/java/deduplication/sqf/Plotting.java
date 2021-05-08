@@ -50,7 +50,7 @@ public class Plotting {
 	}
 	
 	public static double secondsElapsed(double start, double end) {
-		return (end - start)/1000;
+		return (end - start);
 	}
 
 }

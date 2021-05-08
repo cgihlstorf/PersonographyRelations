@@ -19,19 +19,18 @@ public class Main {
     	
     	Plotting newPlot = new Plotting();
     	
-    	double[] xValues = new double[501];
-		double[] yValues = new double[501];
-		for(int n = 0; n <= 500; n++) {
+    	double[] xValues = new double[10001];
+		double[] yValues = new double[10001];
+		for(int n = 0; n <= 10000; n++) {
 			test = new DataReader(args[0]);
 			for(int i = test.getVoterEntries().size()-1; i > n; i--) {
 				test.getVoterEntries().remove(i);
 			}
-			System.out.println(test.getVoterEntries().size());
 			double start = newPlot.startTimer();
-			test.hashLinearDeduplication();
+			test.allPairsDeduplication();
 			double end = newPlot.endTimer();
 			double timeSec = newPlot.secondsElapsed(start, end);
-			//System.out.println(n + ":" + n + timeSec);
+			//System.out.println(n + ":" + timeSec);
 			xValues [n] = n;
 			yValues [n] = timeSec;
 		}

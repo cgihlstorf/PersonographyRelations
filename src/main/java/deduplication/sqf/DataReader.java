@@ -116,12 +116,12 @@ public class DataReader {
 					swap(voterEntries.get(pivotIndex), voterEntries.get(otherIndex));
 					swap(pivotIndex, otherIndex);
 				}
-				else if (voterEntries.get(pivotIndex).compareTo(voterEntries.get(otherIndex)) > 0) {
+				else if (pivotIndex > 0 && voterEntries.get(pivotIndex).compareTo(voterEntries.get(otherIndex)) > 0) {
 					pivotIndex--;
 				}
 			}
 			else if((voterEntries.get(pivotIndex).equals(pivotElement) || voterEntries.get(otherIndex).equals(pivotElement)) && pivotIndex - otherIndex > 0) {//if otherIndex is less than/to the left of pivotIndex
-				if (voterEntries.get(pivotIndex).compareTo(voterEntries.get(otherIndex)) < 0){
+				if (otherIndex < voterEntries.size() && voterEntries.get(pivotIndex).compareTo(voterEntries.get(otherIndex)) < 0){
 					otherIndex++;
 					
 				}
