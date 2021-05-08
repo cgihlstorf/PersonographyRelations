@@ -25,15 +25,15 @@ public class Plotting {
 	}
 	public static void plotData(double[] xVals, double[] yVals) {
 		DoubleColumn column1 = DoubleColumn.create("n-value", xVals);//come back to this
-		DoubleColumn column2 = DoubleColumn.create("Runtime", yVals);
+		DoubleColumn column2 = DoubleColumn.create("Time in Seconds", yVals);
 
 		Table table = Table.create("Data Table");
 		table.addColumns(column1, column2);
-		Plot.show(LinePlot.create("n-value versus Runtime", table, "n-value", "Runtime"));
+		Plot.show(LinePlot.create("n-value versus Runtime", table, "n-value", "Time in Seconds"));
 	}
 	
 	public static double startTimer() {
-		return System.currentTimeMillis()/1000;
+		return System.currentTimeMillis();
 	}
 	
 	public static int fib(int n) {
@@ -46,11 +46,11 @@ public class Plotting {
 	}
 	
 	public static double endTimer() {
-		return System.currentTimeMillis()/1000;
+		return System.currentTimeMillis();
 	}
 	
 	public static double secondsElapsed(double start, double end) {
-		return end - start;
+		return (end - start)/1000;
 	}
 
 }

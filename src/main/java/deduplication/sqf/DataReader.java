@@ -9,7 +9,7 @@ import com.opencsv.CSVReaderHeaderAware;
 
 public class DataReader {
 	CSVReaderHeaderAware reader;
-	ArrayList<Voter> voterEntries = new ArrayList<Voter>();
+	private ArrayList<Voter> voterEntries = new ArrayList<Voter>();
 	
 	public DataReader(String csv) {
 		try {
@@ -33,6 +33,10 @@ public class DataReader {
 	
 	public ArrayList<Voter> getVoterEntries(){
 		return voterEntries;
+	}
+	
+	public void setVoterEntries(ArrayList<Voter> voterEntries) {
+		this.voterEntries = voterEntries;
 	}
 	
 	public ArrayList<Voter> allPairsDeduplication() { 
