@@ -31,7 +31,7 @@ public class Main {
 			test.hashLinearDeduplication();
 			double end = newPlot.endTimer();
 			double timeSec = newPlot.secondsElapsed(start, end);
-			//System.out.println(n + ":" + timeSec);
+			//System.out.println(n + ":" + n + timeSec);
 			xValues [n] = n;
 			yValues [n] = timeSec;
 		}
