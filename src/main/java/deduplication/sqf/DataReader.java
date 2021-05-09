@@ -31,6 +31,26 @@ public class DataReader {
 		}
 	}
 	
+	public DataReader(String csv, int end) {
+		try {
+			reader = new CSVReaderHeaderAware(new FileReader(csv));
+			ArrayList<String[]> csvEntries = new ArrayList<String[]>(reader.readAll());//create new arraylist
+	    	reader.close(); 
+	    	for (int i = 0; i < end; i++) {
+	    		Voter voter = new Voter (csvEntries.get(i));
+	    		voterEntries.add(voter);
+	    		//System.out.println(voter.toString());
+	    	}
+	    	//System.out.println(csvEntries.size());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch bloc
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public ArrayList<Voter> getVoterEntries(){
 		return voterEntries;
 	}
