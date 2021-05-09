@@ -22,13 +22,13 @@ public class Main {
 //    	System.out.println("Attributes checked:FIRST_NAME,LAST_NAME");
 //    	System.out.println("Duplicates found:" + (test.getVoterEntries().size() - test.hashLinearDeduplication().size()));
     	
-    	double[] xValues = new double[101];
-		double[] yValues = new double[101];
+    	double[] xValues = new double[11];
+		double[] yValues = new double[11];
 		int index = 0;
-		for(int n = 0; n <= 10000; n=n+100) {
+		for(int n = 0; n <= 10000; n=n+1000) {
 			DataReader test = new DataReader(args[0], n);
 			double start = startTimer();
-			test.allPairsDeduplication();
+			test.hashLinearDeduplication();
 			double end = endTimer();
 			double timeSec = secondsElapsed(start, end);
 			//System.out.println(n + ":" + timeSec);
