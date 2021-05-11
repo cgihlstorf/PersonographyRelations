@@ -12,7 +12,7 @@ public class Voter implements Comparable<Voter> {
 	}
 
 	@Override
-	public int compareTo(Voter o) {
+	public int compareTo(Voter o) {//rename
 		if(this.lastName.compareTo(o.lastName) > 0 || this.lastName.compareTo(o.lastName) < 0)
 			return this.lastName.compareTo(o.lastName);
 		else

@@ -91,7 +91,6 @@ public class DataReader {
 	
 	public ArrayList<Voter> quicksortDeduplication(){
 		ArrayList<Voter> newList = new ArrayList<Voter>();
-		System.out.println("test");
 		quickSort(0, voterEntries.size() - 1);
 		for (int i = 0; i < voterEntries.size() - 1; i++) {
 			if (voterEntries.get(i).compareTo(voterEntries.get(i + 1)) != 0){
@@ -102,70 +101,51 @@ public class DataReader {
 	}
 	
 	public void quickSort(int index1, int index2) {	
-		int pivotIndex = partition(index1, index2);
 		if(index1 < index2) {
+			int pivotIndex = partition(index1, index2);
 			quickSort(index1, pivotIndex - 1);
 			quickSort(pivotIndex + 1, index2);
 		}
 	}
-//		for(int i = 0; i < voterEntries.size() - 1; i++) {	
-//			if(voterEntries.get(i).compareTo(voterEntries.get(i+1)) > 0){
-//				if(index2 - index1 == 1) {
-//					if(voterEntries.get(index1).compareTo(voterEntries.get(index2)) > 0) {
-//						swap(voterEntries.get(index1), voterEntries.get(index2));
-//						swap(index1, index2);
-//					}
-//					break;
-//				}
-//				int pivotIndex = partition(index1, index2);
-////				else if(pivotIndex == index1 && pivotIndex == index2) break;//see if this is needed
-//				if(pivotIndex-1 == index1 && pivotIndex+1 == index2) break;
-//				else if (pivotIndex-1 == index1 && pivotIndex+1 != index2) quickSort(pivotIndex + 1,index2);
-//				else if (pivotIndex-1 != index1 && pivotIndex+1 == index2) quickSort(index1, pivotIndex - 1);
-////				else {
-//				}
-//			}
-//		}
-
 	
-	public int partition (int pivotIndex, int otherIndex) {
-		Voter pivotElement = voterEntries.get(pivotIndex);
-		while(pivotIndex != otherIndex) {
-			if ((voterEntries.get(pivotIndex).equals(pivotElement) || voterEntries.get(otherIndex).equals(pivotElement)) && pivotIndex - otherIndex < 0) {//if otherIndex is greater than/to the right of pivotIndex
-				if (voterEntries.get(pivotIndex).compareTo(voterEntries.get(otherIndex)) < 0){//pivotIndex less than otherIndex
-					swap(voterEntries.get(pivotIndex), voterEntries.get(otherIndex));
-					swap(pivotIndex, otherIndex);
+	public int partition (int lowIndex, int highIndex) {
+		Voter pivotElement = voterEntries.get(highIndex);
+		while(highIndex != lowIndex) {
+			if ((voterEntries.get(highIndex).compareTo(pivotElement) == 0|| voterEntries.get(lowIndex).compareTo(pivotElement) == 0) 
+					&& highIndex - lowIndex < 0) {//if lowIndex is greater than/to the right of highIndex
+				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){//highIndex less than lowIndex
+					swap(highIndex, lowIndex);
+					int tempIndex = highIndex;
+					highIndex = lowIndex;
+					lowIndex = tempIndex;
+					pivotElement = voterEntries.get(highIndex);
 				}
-				else if (pivotIndex > 0 && voterEntries.get(pivotIndex).compareTo(voterEntries.get(otherIndex)) > 0) {
-					pivotIndex--;
+				else {//if (highIndex > 0 && voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) > 0) {
+					lowIndex--;
 				}
 			}
-			else if((voterEntries.get(pivotIndex).equals(pivotElement) || voterEntries.get(otherIndex).equals(pivotElement)) && pivotIndex - otherIndex > 0) {//if otherIndex is less than/to the left of pivotIndex
-				if (otherIndex < voterEntries.size() && voterEntries.get(pivotIndex).compareTo(voterEntries.get(otherIndex)) < 0){
-					otherIndex++;
-					
+			else if((voterEntries.get(highIndex).compareTo(pivotElement) == 0|| voterEntries.get(lowIndex).compareTo(pivotElement) == 0) 
+					&& highIndex - lowIndex > 0) {//if lowIndex is less than/to the left of highIndex
+				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){
+					swap(highIndex, lowIndex);
+					int tempIndex = highIndex;
+					highIndex = lowIndex;
+					lowIndex = tempIndex;
+					pivotElement = voterEntries.get(highIndex);
 				}
-				else if (voterEntries.get(pivotIndex).compareTo(voterEntries.get(otherIndex)) > 0) {
-					swap(voterEntries.get(pivotIndex), voterEntries.get(otherIndex));
-					swap(pivotIndex, otherIndex);
+				else {//if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) > 0) {
+					lowIndex++;
 				}
 			}
 		}
-		return pivotIndex;
-	}
-	
-	public void swap (Voter voter1, Voter voter2) {
-		int voter1Index = voterEntries.indexOf(voter1);
-		voterEntries.set(voterEntries.indexOf(voter2), voter1);
-		voterEntries.set(voter1Index, voter2);
+		return highIndex;
 	}
 	
 	public void swap (int index1, int index2) {
-		int temp = index1;
-		index1 = index2;
-		index2 = temp;
+		Voter tempVoter = voterEntries.get(index1);
+		voterEntries.set(index1, voterEntries.get(index2));
+		voterEntries.set(index2, tempVoter);
 	}
-	
 }
 
 
