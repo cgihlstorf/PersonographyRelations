@@ -8,7 +8,13 @@ import tech.tablesaw.plotly.Plot;
 import tech.tablesaw.plotly.api.LinePlot;
 
 /**
- * TODO
+ * This class serves as a space to test the correctness of the methods in our DataReader class. It also serves
+ * to graph the runtime of the different deduplication functions in DataReader. 
+ * 
+ * ******should we add to this description?**************
+ * 
+ *  @authors Caroline Gihlstorf and Jenna Krussman
+ *  @version May 11, 2021
  */
 public class Main {
 
