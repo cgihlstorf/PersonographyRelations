@@ -14,7 +14,7 @@ import tech.tablesaw.plotly.api.LinePlot;
  * ******should we add to this description?**************
  * 
  *  @authors Caroline Gihlstorf and Jenna Krussman
- *  @version May 11, 2021
+ *  @version May 12, 2021
  */
 public class Main {
 
@@ -46,6 +46,11 @@ public class Main {
 		plotData(xValues, yValues);
     }
     
+    /**
+     * This method plots the data of the inputed arrayLists
+     * @param xVals the x values of the plot
+     * @param yVals the y values of the plot
+     */
 	public static void plotData(double[] xVals, double[] yVals) {
 		DoubleColumn column1 = DoubleColumn.create("n-value", xVals);//come back to this
 		DoubleColumn column2 = DoubleColumn.create("Time in Seconds", yVals);
@@ -55,14 +60,28 @@ public class Main {
 		Plot.show(LinePlot.create("n-value versus Runtime", table, "n-value", "Time in Seconds"));
 	}
 	
+	/**
+	 * This method records the time at the start of the timer
+	 * @return The start time
+	 */
 	public static double startTimer() {
 		return System.currentTimeMillis();
 	}
 	
+	/**
+	 * This method records the time at the end of the timer
+	 * @return The end time
+	 */
 	public static double endTimer() {
 		return System.currentTimeMillis();
 	}
 	
+	/**
+	 * This method calculates the milliseconds elapsed by subtracting the start time from the end time
+	 * @param start Start time
+	 * @param end End time
+	 * @return the different between the start and end time
+	 */
 	public static double secondsElapsed(double start, double end) {
 		return end - start;
 	}

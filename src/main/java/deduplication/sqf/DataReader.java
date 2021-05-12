@@ -31,7 +31,6 @@ public class DataReader {
 	    	for (int i = 0; i < csvEntries.size(); i++) {
 	    		Voter voter = new Voter (csvEntries.get(i));
 	    		voterEntries.add(voter);
-	    		//System.out.println(voter.toString());
 	    	}
 	    	//System.out.println(csvEntries.size());
 		} catch (FileNotFoundException e) {
@@ -84,7 +83,6 @@ public class DataReader {
 			for(int j = 0; j < deduplicatedEntries.size(); j++) {//create new ArrayList, add if not same person
 				if(voterEntries.get(i).compareTo(deduplicatedEntries.get(j)) == 0) {
 					duplicate = true;
-					//System.out.println(voterEntries.get(i));
 					break;
 				}
 			}	
@@ -135,12 +133,11 @@ public class DataReader {
 	}
 	
 	/**
-	 * Once we get this method working, we will describe how it works :)
+	 * This method takes in two indices and shorts them using the quick sort recursion method
 	 * 
-	 * @param index1
-	 * @param index2
+	 * @param index1 the first index
+	 * @param index2 the last index
 	 */
-	
 	public void quickSort(int index1, int index2) {	
 		if(index1 < index2) {
 			int pivotIndex = partition(index1, index2);
@@ -150,10 +147,11 @@ public class DataReader {
 	}
 	
 	/**
-	 * Once we get this method working, we will describe how it works as well :)
+	 * This method looks at the pivot and organizes the elements so that the elements to the left are less then the pivot
+	 * and the elements to the right are greater than the pivot
 	 * 
-	 * @param lowIndex
-	 * @param highIndex
+	 * @param lowIndex the low index of the section of the array being sorted
+	 * @param highIndex the end index of the section of the array being sorted
 	 */
 	public int partition (int lowIndex, int highIndex) {
 		Voter pivotElement = voterEntries.get(highIndex);
@@ -161,24 +159,16 @@ public class DataReader {
 			if (voterEntries.get(lowIndex).compareTo(pivotElement) == 0) {//if lowIndex is greater than/to the right of highIndex
 				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){//highIndex less than lowIndex
 					swap(highIndex, lowIndex);
-//					int tempIndex = highIndex;
-//					highIndex = lowIndex;
-//					lowIndex = tempIndex;
-//					pivotElement = voterEntries.get(highIndex);
 				}
-				else {//if (highIndex > 0 && voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) > 0) {
+				else {
 					highIndex--;
 				}
 			}
 			else if(voterEntries.get(highIndex).compareTo(pivotElement) == 0) {//if lowIndex is less than/to the left of highIndex
 				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){
 					swap(highIndex, lowIndex);
-//					int tempIndex = highIndex;
-//					highIndex = lowIndex;
-//					lowIndex = tempIndex;
-//					pivotElement = voterEntries.get(highIndex);
 				}
-				else {//if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) > 0) {
+				else {
 					lowIndex++;
 				}
 			}
