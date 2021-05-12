@@ -130,6 +130,7 @@ public class DataReader {
 				newList.add(voterEntries.get(i));
 			}
 		}
+		newList.add(voterEntries.get(voterEntries.size()-1));
 		return newList;
 	}
 	
@@ -157,8 +158,7 @@ public class DataReader {
 	public int partition (int lowIndex, int highIndex) {
 		Voter pivotElement = voterEntries.get(highIndex);
 		while(highIndex != lowIndex) {
-			if ((voterEntries.get(highIndex).compareTo(pivotElement) == 0|| voterEntries.get(lowIndex).compareTo(pivotElement) == 0) 
-					&& highIndex - lowIndex < 0) {//if lowIndex is greater than/to the right of highIndex
+			if (voterEntries.get(lowIndex).compareTo(pivotElement) == 0) {//if lowIndex is greater than/to the right of highIndex
 				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){//highIndex less than lowIndex
 					swap(highIndex, lowIndex);
 //					int tempIndex = highIndex;
@@ -170,8 +170,7 @@ public class DataReader {
 					highIndex--;
 				}
 			}
-			else if((voterEntries.get(highIndex).compareTo(pivotElement) == 0|| voterEntries.get(lowIndex).compareTo(pivotElement) == 0) 
-					&& highIndex - lowIndex > 0) {//if lowIndex is less than/to the left of highIndex
+			else if(voterEntries.get(highIndex).compareTo(pivotElement) == 0) {//if lowIndex is less than/to the left of highIndex
 				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){
 					swap(highIndex, lowIndex);
 //					int tempIndex = highIndex;
