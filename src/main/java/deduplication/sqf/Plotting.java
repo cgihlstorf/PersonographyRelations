@@ -10,7 +10,7 @@ import tech.tablesaw.*;
  * This class includes methods to time the execution of different methods and graph their runtimes. 
  * 
  * @author Caroline Gihlstorf and Jenna Krussman
- * @version May 11, 2021
+ * @version May 12, 2021
  *
  */
 
