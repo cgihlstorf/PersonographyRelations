@@ -15,7 +15,7 @@ import com.opencsv.CSVReaderHeaderAware;
  * are then removed from the list 
  * 
  * @authors Caroline Gihlstorf and Jenna Krussman
- * @version May 11, 2021
+ * @version May 12, 2021
  *
  */
 
@@ -26,13 +26,12 @@ public class DataReader {
 	public DataReader(String csv) {
 		try {
 			reader = new CSVReaderHeaderAware(new FileReader(csv));
-			ArrayList<String[]> csvEntries = new ArrayList<String[]>(reader.readAll());//create new arraylist
+			ArrayList<String[]> csvEntries = new ArrayList<String[]>(reader.readAll());
 	    	reader.close(); 
-	    	for (int i = 0; i < csvEntries.size(); i++) {
+	    	for (int i = 0; i < csvEntries.size(); i++) {//create a Voter object from every entry in csvEntries
 	    		Voter voter = new Voter (csvEntries.get(i));
 	    		voterEntries.add(voter);
 	    	}
-	    	//System.out.println(csvEntries.size());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch bloc
 			e.printStackTrace();
@@ -45,9 +44,9 @@ public class DataReader {
 	public DataReader(String csv, int end) {
 		try {
 			reader = new CSVReaderHeaderAware(new FileReader(csv));
-			ArrayList<String[]> csvEntries = new ArrayList<String[]>(reader.readAll());//create new arraylist
+			ArrayList<String[]> csvEntries = new ArrayList<String[]>(reader.readAll());
 	    	reader.close(); 
-	    	for (int i = 0; i < end; i++) {
+	    	for (int i = 0; i < end; i++) {//create a Voter object from a specified number of entries in csvEntries 
 	    		Voter voter = new Voter (csvEntries.get(i));
 	    		voterEntries.add(voter);
 	    	}
@@ -60,10 +59,11 @@ public class DataReader {
 		}
 	}
 	
+	//Getter method for voterEntries
 	public ArrayList<Voter> getVoterEntries(){
 		return voterEntries;
 	}
-	
+	//Setter method for voterEntries
 	public void setVoterEntries(ArrayList<Voter> voterEntries) {
 		this.voterEntries = voterEntries;
 	}
@@ -77,10 +77,10 @@ public class DataReader {
 	 * @return deduplicatedEntries
 	 */
 	public ArrayList<Voter> allPairsDeduplication() { 
-		boolean duplicate = false;
+		boolean duplicate = false;//true of duplicate is found,false otherwise
 		ArrayList<Voter> deduplicatedEntries = new ArrayList<Voter>();
-		for(int i = 0; i < voterEntries.size(); i++) {
-			for(int j = 0; j < deduplicatedEntries.size(); j++) {//create new ArrayList, add if not same person
+		for(int i = 0; i < voterEntries.size(); i++) {//for each element of voterEntries, iterate through and compare to all other elements 
+			for(int j = 0; j < deduplicatedEntries.size(); j++) {//add Voter to deduplicatedEntries if not same person
 				if(voterEntries.get(i).compareTo(deduplicatedEntries.get(j)) == 0) {
 					duplicate = true;
 					break;
@@ -109,7 +109,7 @@ public class DataReader {
 		for (int i = 0; i < voterMap.size(); i++) {
 			outputList.add(voterMap.get(voterEntries.get(i).toString()));
 		}
-		return outputList;
+		return outputList; //return ArrayList with no duplicates 
 	}
 	
 	/**
@@ -156,15 +156,15 @@ public class DataReader {
 	public int partition (int lowIndex, int highIndex) {
 		Voter pivotElement = voterEntries.get(highIndex);
 		while(highIndex != lowIndex) {
-			if (voterEntries.get(lowIndex).compareTo(pivotElement) == 0) {//if lowIndex is greater than/to the right of highIndex
-				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){//highIndex less than lowIndex
+			if (voterEntries.get(lowIndex).compareTo(pivotElement) == 0) {//if the element at lowIndex equals the pivotElement
+				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){ 
 					swap(highIndex, lowIndex);
 				}
 				else {
 					highIndex--;
 				}
 			}
-			else if(voterEntries.get(highIndex).compareTo(pivotElement) == 0) {//if lowIndex is less than/to the left of highIndex
+			else if(voterEntries.get(highIndex).compareTo(pivotElement) == 0) {//if the element at highIndex equals the pivotElement
 				if (voterEntries.get(highIndex).compareTo(voterEntries.get(lowIndex)) < 0){
 					swap(highIndex, lowIndex);
 				}

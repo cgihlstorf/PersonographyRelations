@@ -3,7 +3,8 @@ package deduplication.sqf;
 /**
  * This class creates a Voter object that stores the first and last name of a voter. The class' constructor takes in a String[] and 
  * sets the first and last name of the voter to the data at certain indices of the String[]
- * @author caroline
+ * 
+ * @authors Caroline Gihlstorf and Jenna Krussman
  *
  */
 
