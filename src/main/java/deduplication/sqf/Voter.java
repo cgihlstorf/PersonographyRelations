@@ -27,7 +27,7 @@ public class Voter implements Comparable<Voter> {
 	 * 0 if both first and last names are identical
 	 */
 	@Override
-	public int compareTo(Voter otherVoter) {//rename
+	public int compareTo(Voter otherVoter) {
 		if(this.lastName.compareTo(otherVoter.lastName) > 0 || this.lastName.compareTo(otherVoter.lastName) < 0)
 			return this.lastName.compareTo(otherVoter.lastName);
 		else

@@ -16,7 +16,7 @@ import tech.tablesaw.*;
 
 public class Plotting {
 	
-	public static void main(String args[]) {//should we use command line for n values???
+	public static void main(String args[]) {
 		double[] xValues = new double[51];
 		double[] yValues = new double[51];
 		for(int n = 0; n <= 50; n++) {
