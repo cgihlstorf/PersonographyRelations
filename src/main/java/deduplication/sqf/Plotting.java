@@ -10,13 +10,13 @@ import tech.tablesaw.*;
  * This class includes methods to time the execution of different methods and graph their runtimes. 
  * 
  * @author Caroline Gihlstorf and Jenna Krussman
- * @version May 11, 2021
+ * @version May 12, 2021
  *
  */
 
 public class Plotting {
 	
-	public static void main(String args[]) {//should we use command line for n values???
+	public static void main(String args[]) {
 		double[] xValues = new double[51];
 		double[] yValues = new double[51];
 		for(int n = 0; n <= 50; n++) {
