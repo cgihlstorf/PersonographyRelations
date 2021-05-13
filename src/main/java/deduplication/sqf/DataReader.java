@@ -187,5 +187,4 @@ public class DataReader {
 		voterEntries.set(index1, voterEntries.get(index2));
 		voterEntries.set(index2, tempVoter);
 	}
-	
 }
