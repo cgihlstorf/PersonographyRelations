@@ -100,7 +100,7 @@ public class DataReader {
 	 * 
 	 * @return outputList
 	 */
-	public ArrayList<Voter> hashLinearDeduplication(){//make sure this works
+	public ArrayList<Voter> hashLinearDeduplication(){
 		ProbeHashMap<String, Voter> voterMap = new ProbeHashMap<String, Voter>(1000003);
 		for (int i = 0; i < voterEntries.size(); i++) {
 			voterMap.put(voterEntries.get(i).toString(), voterEntries.get(i));
@@ -187,4 +187,5 @@ public class DataReader {
 		voterEntries.set(index1, voterEntries.get(index2));
 		voterEntries.set(index2, tempVoter);
 	}
+	
 }
